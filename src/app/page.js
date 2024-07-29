@@ -1,8 +1,43 @@
 "use client"
 import { Eye } from "@phosphor-icons/react";
 import Image from "next/image";
+import { useState } from "react";
+import { validateEmail, validatePhoneNumber} from "../utils/validateFunctions";
+import Button from "@/components/Button";
+import { maskPhoneNumber } from "@/utils/msks";
+
+
 
 export default function Home() {
+  const [err0Message,setErroMessage] = useState("");
+
+  
+  function onBlurEmail(event){
+    const email = event.target.value;
+
+    if(validateEmail(email) ){
+      setErroMessage("");
+    }
+    else{
+      setErroMessage("*Email inválido, por favor insira um e-mail válido");
+    }
+  }
+  function OnBlurPhoneNumber(event){
+    const phoneNumber = event.target.value;
+
+    if(validatePhoneNumber(phoneNumber) ){
+      event.target.value = maskPhoneNumber(phoneNumber); 
+      setErroMessage("");
+    }
+    else{
+      setErroMessage("*Número de telefone inválido, por favor insira um número de telefone válido.");
+    }
+
+    
+  }
+
+
+
   return (
     <main className="flex min-h-screen flex-col 
     items-center justify-center p-24 max-h-screen">
@@ -35,12 +70,12 @@ export default function Home() {
               <input className="border-none focus:outline-none bg-opacity-5 bg-black rounded-xl placeholder-gray-400 p-4 flex-1" placeholder="First Name" />
               <input className="border-none focus:outline-none bg-opacity-5 bg-black rounded-xl placeholder-gray-400 p-4 flex-1" placeholder="Second Name" />
             </div>
-            <input className="border-none focus:outline-none bg-opacity-5 bg-black rounded-xl placeholder-gray-400 p-4 min-w-full" placeholder="Email" />
-            <div className="h-16 w-full bg-[#f2f2f2] rounded-xl flex items-center px-4 gap-4">
+            <input onBlur={onBlurEmail} className="border-none focus:outline-none bg-opacity-5 bg-black rounded-xl placeholder-gray-400 p-4 min-w-full" placeholder="Email" />
+            <div  className="h-16 w-full bg-[#f2f2f2] rounded-xl flex items-center px-4 gap-4">
               <Image src="/assets/usaflag.png" alt="arrow" width={35} height={35} />
               <p>+ 1</p>
               <div className="w-[1px] h-[80%] bg-gray-400 rounded" />
-              <input className="flex-grow bg-transparent focus:outline-none" placeholder="Number" />
+              <input onBlur={OnBlurPhoneNumber} className="flex-grow bg-transparent focus:outline-none" placeholder="Number" />
             </div>
 
             <div className="flex gap-5 max-w-full">
@@ -53,13 +88,18 @@ export default function Home() {
                 <Eye color="#9da3af" size={32} />
               </div>
             </div>
-
+            <div className="text-red-600">
+              {err0Message}
+            </div>
+             
             <div className="flex items-start px-4">
               <span>
                 <input type="checkbox" className="mr-2 h-5 w-5 accent-[#836ef1]" />
               </span>
               <p>By checking this box you are agreeing with our Terms and Conditions and Privacy Policy.</p>
             </div>
+            <Button title="Create Account" color="blue"/>
+            <Button title="Login" color="green"/>
           </div>
         </div>
       </div>
