@@ -28,14 +28,15 @@ export function validateEmail(email) {
     "11",
   ]
   export function validatePhoneNumber(phoneNumber) {
-    if (phoneNumber.length !== 11 && phoneNumber !==15) {
-      
-      return false;
-    }
-    
     const twoFirstDigits = phoneNumber.slice(0, 2);
 
     const validDDD = EXISTENT_DDDS_BR.includes(twoFirstDigits);
+    
+    if (phoneNumber.length !== 11) {
+      
+      return false;
+    }
+      
 
     if (!validDDD) {
       return false;

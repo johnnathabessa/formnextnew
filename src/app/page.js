@@ -23,7 +23,8 @@ export default function Home() {
     }
   }
   function OnBlurPhoneNumber(event){
-    const phoneNumber = event.target.value;
+    let phoneNumber = event.target.value;
+    phoneNumber = phoneNumber.replace (/\D/g, '');
 
     if(validatePhoneNumber(phoneNumber) ){
       event.target.value = maskPhoneNumber(phoneNumber); 
