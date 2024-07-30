@@ -9,7 +9,12 @@ export default function Button( {title="", onClick=()=>{}, color = "indigo"} ) {
     }
 
     return (
-        <button onClick={onClick} className={`${getColorVariants[color]} text-white p-4 rounded-xl w-full`}>{title}</button> 
+      <button
+        className={`${getColorVariants[color]} text-white p-4 rounded-xl w-full`}
+        onClick={onClick}
+      >
+        {title}
+      </button> 
 
     )
 }
